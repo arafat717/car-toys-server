@@ -1,9 +1,8 @@
 const express = require('express')
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express()
 var cors = require('cors')
 require('dotenv').config()
-const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
-const { json } = require('react-router-dom');
 const port = process.env.PORT || 5000;
 
 // midlewire
@@ -28,7 +27,7 @@ const client = new MongoClient(uri, {
 async function run() {
     try {
         // Connect the client to the server	(optional starting in v4.7)
-        await client.connect();
+        // await client.connect();
 
         const toydatabase = client.db("bdtoyDB").collection("toys");
         const fackdatatoy = client.db("bdToygor").collection("bdtoy");
@@ -37,7 +36,7 @@ async function run() {
         const indexKeys = {name: 1, catagory: 1};
         const indexOptions = {name: "catagoryname"};
 
-        const result = await toydatabase.createIndex(indexKeys,indexOptions)
+        // const result = await toydatabase.createIndex(indexKeys,indexOptions)
 
         app.get('/searchname/:text', async(req, res)=>{
             const searchtext = req.params.text;
@@ -66,7 +65,7 @@ async function run() {
             res.send(result)
         })
 
-       
+        
 
 
         // app.get('/toydata/:id', async(req,res)=>{
